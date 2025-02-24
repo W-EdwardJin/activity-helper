@@ -1,5 +1,5 @@
 {
-  "envId": "social-activity-helper",
+  "envId": "your-env-id",
   "functionRoot": "cloudfunctions",
   "functions": [
     {
