@@ -1,0 +1,21 @@
+{
+  "desc": "活动组织小助手的索引配置文件",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "pages/index/index",
+      "params": [],
+      "matching": "exact"
+    },
+    {
+      "action": "allow",
+      "page": "pages/activity/detail/index",
+      "params": ["id"],
+      "matching": "exact"
+    },
+    {
+      "action": "disallow",
+      "page": "pages/user/*"
+    }
+  ]
+}

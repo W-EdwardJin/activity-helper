@@ -1,0 +1,23 @@
+{
+  "activity": {
+    "read": true,
+    "write": "doc.creatorId == auth.openid",
+    "create": true,
+    "update": "doc.creatorId == auth.openid",
+    "delete": "doc.creatorId == auth.openid"
+  },
+  "enrollment": {
+    "read": "doc.userId == auth.openid || doc.activityCreatorId == auth.openid",
+    "write": "doc.userId == auth.openid",
+    "create": true,
+    "update": "doc.userId == auth.openid",
+    "delete": "doc.userId == auth.openid"
+  },
+  "payment": {
+    "read": "doc.userId == auth.openid || doc.activityCreatorId == auth.openid",
+    "write": "doc.activityCreatorId == auth.openid",
+    "create": "doc.activityCreatorId == auth.openid",
+    "update": "doc.activityCreatorId == auth.openid",
+    "delete": "doc.activityCreatorId == auth.openid"
+  }
+}

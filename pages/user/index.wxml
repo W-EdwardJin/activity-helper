@@ -1,0 +1,35 @@
+<!-- pages/user/index.wxml -->
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <block wx:if="{{isLoggedIn}}">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"/>
+      <view class="nickname">{{userInfo.nickName}}</view>
+      <view class="phone" wx:if="{{userInfo.phoneNumber}}">{{userInfo.phoneNumber}}</view>
+    </block>
+    <block wx:else>
+      <van-button type="primary" bind:tap="goToLogin">登录</van-button>
+    </block>
+  </view>
+
+  <!-- 功能列表 -->
+  <van-cell-group title="我的活动">
+    <van-cell title="我创建的活动" is-link url="/pages/activity/my-created/index"
+      icon="todo-list-o"/>
+    <van-cell title="我参与的活动" is-link url="/pages/activity/my-joined/index"
+      icon="friends-o"/>
+  </van-cell-group>
+
+  <!-- 其他功能 -->
+  <van-cell-group title="设置">
+    <van-cell title="个人资料" is-link url="/pages/user/profile/index"
+      icon="user-o"/>
+    <van-cell title="关于我们" is-link url="/pages/about/index"
+      icon="info-o"/>
+  </van-cell-group>
+
+  <!-- 退出登录 -->
+  <view class="logout-btn" wx:if="{{isLoggedIn}}">
+    <van-button type="danger" block bind:tap="logout">退出登录</van-button>
+  </view>
+</view>

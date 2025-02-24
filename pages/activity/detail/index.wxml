@@ -1,0 +1,72 @@
+<!-- pages/activity/detail/index.wxml -->
+<view class="container">
+  <block wx:if="{{ !loading && activity }}">
+    <!-- 活动封面 -->
+    <image wx:if="{{ activity.coverUrl }}" 
+           src="{{ activity.coverUrl }}" 
+           mode="aspectFill" 
+           class="activity-cover"/>
+
+    <!-- 活动信息 -->
+    <view class="activity-info">
+      <view class="activity-title">{{ activity.title }}</view>
+      <van-cell-group>
+        <van-cell title="活动时间" icon="clock-o">
+          <text>{{ activity.startTime }}</text>
+        </van-cell>
+        <van-cell title="活动地点" icon="location-o">
+          <text>{{ activity.location }}</text>
+        </van-cell>
+        <van-cell title="活动类型" icon="label-o">
+          <van-tag type="primary" size="medium">{{ activity.type }}</van-tag>
+        </van-cell>
+        <van-cell title="参与人数" icon="friends-o">
+          <text>{{ activity.currentParticipants }}/{{ activity.maxParticipants }}</text>
+        </van-cell>
+      </van-cell-group>
+
+      <!-- 活动描述 -->
+      <view class="description-section">
+        <view class="section-title">活动描述</view>
+        <view class="description-content">{{ activity.description }}</view>
+      </view>
+
+      <!-- 参与者列表 -->
+      <view class="participants-section">
+        <view class="section-title">参与者列表</view>
+        <view class="participants-list">
+          <van-cell-group>
+            <van-cell wx:for="{{ participants }}" 
+                      wx:key="_id"
+                      title="{{ item.nickName }}"
+                      label="{{ item.status }}"
+                      center>
+              <image slot="icon" 
+                     src="{{ item.avatarUrl }}" 
+                     class="participant-avatar"/>
+            </van-cell>
+          </van-cell-group>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <block wx:if="{{ !isCreator }}">
+        <van-button wx:if="{{ !isEnrolled }}" 
+                    type="primary" 
+                    block 
+                    bind:click="enroll">立即报名</van-button>
+        <van-button wx:else 
+                    type="danger" 
+                    block 
+                    bind:click="cancelEnrollment">取消报名</van-button>
+      </block>
+    </view>
+  </block>
+
+  <!-- 加载中状态 -->
+  <view wx:if="{{ loading }}" class="loading">
+    <van-loading type="spinner" color="#1296db" />
+  </view>
+</view>

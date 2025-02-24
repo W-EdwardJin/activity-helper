@@ -1,0 +1,36 @@
+.container {
+  padding: 20px;
+  background-color: #f7f8fa;
+  min-height: 100vh;
+}
+
+.upload-section {
+  padding: 16px;
+  background-color: #fff;
+  margin-top: 8px;
+}
+
+.section-title {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #646566;
+}
+
+.submit-btn {
+  margin-top: 24px;
+  padding: 16px;
+}
+
+/* 自定义表单样式 */
+.van-field__label {
+  width: 90px !important;
+}
+
+.van-cell__title {
+  flex: none !important;
+}
+
+/* 文本域样式 */
+.van-field__body--textarea {
+  min-height: 100px;
+}

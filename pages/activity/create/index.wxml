@@ -1,0 +1,116 @@
+<view class="container">
+  <van-form bind:submit="onSubmit">
+    <!-- 基本信息 -->
+    <van-cell-group title="基本信息">
+      <van-field
+        name="title"
+        label="活动标题"
+        placeholder="请输入活动标题"
+        rules="{{ [{required: true, message: '请输入活动标题'}] }}"
+      />
+      
+      <van-field
+        name="startTime"
+        label="开始时间"
+        placeholder="请选择开始时间"
+        readonly
+        value="{{ startTime }}"
+        bindtap="showStartTimePicker"
+        rules="{{ [{required: true, message: '请选择开始时间'}] }}"
+      />
+      
+      <van-field
+        name="endTime"
+        label="结束时间"
+        placeholder="请选择结束时间"
+        readonly
+        value="{{ endTime }}"
+        bindtap="showEndTimePicker"
+        rules="{{ [{required: true, message: '请选择结束时间'}] }}"
+      />
+      
+      <van-field
+        name="location"
+        label="活动地点"
+        placeholder="请输入活动地点"
+        rules="{{ [{required: true, message: '请输入活动地点'}] }}"
+      />
+      
+      <van-field
+        name="description"
+        label="活动描述"
+        type="textarea"
+        placeholder="请输入活动描述"
+        autosize
+        rules="{{ [{required: true, message: '请输入活动描述'}] }}"
+      />
+    </van-cell-group>
+
+    <!-- 活动设置 -->
+    <van-cell-group title="活动设置">
+      <van-field
+        name="type"
+        label="活动类型"
+        placeholder="请选择活动类型"
+        readonly
+        value="{{ activityType }}"
+        bindtap="showActivityTypePicker"
+        rules="{{ [{required: true, message: '请选择活动类型'}] }}"
+      />
+      
+      <van-field
+        name="maxParticipants"
+        label="人数限制"
+        type="number"
+        placeholder="请输入人数限制（选填）"
+      />
+    </van-cell-group>
+
+    <!-- 封面上传 -->
+    <view class="upload-section">
+      <view class="section-title">活动封面</view>
+      <van-uploader
+        file-list="{{ fileList }}"
+        bind:after-read="afterRead"
+        bind:delete="deleteImage"
+        max-count="1"
+      />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-btn">
+      <van-button round block type="primary" form-type="submit">创建活动</van-button>
+    </view>
+  </van-form>
+
+  <!-- 时间选择器 -->
+  <van-popup show="{{ showStartTimePicker }}" position="bottom" bind:close="closeStartTimePicker">
+    <van-datetime-picker
+      type="datetime"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      bind:confirm="onStartTimeConfirm"
+      bind:cancel="closeStartTimePicker"
+    />
+  </van-popup>
+
+  <van-popup show="{{ showEndTimePicker }}" position="bottom" bind:close="closeEndTimePicker">
+    <van-datetime-picker
+      type="datetime"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      bind:confirm="onEndTimeConfirm"
+      bind:cancel="closeEndTimePicker"
+    />
+  </van-popup>
+
+  <!-- 活动类型选择器 -->
+  <van-popup show="{{ showActivityTypePicker }}" position="bottom" bind:close="closeActivityTypePicker">
+    <van-picker
+      columns="{{ activityTypes }}"
+      bind:confirm="onActivityTypeConfirm"
+      bind:cancel="closeActivityTypePicker"
+      show-toolbar
+    />
+  </van-popup>
+</view>

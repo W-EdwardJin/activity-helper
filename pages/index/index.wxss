@@ -1,0 +1,69 @@
+.container {
+  padding-bottom: 20px;
+  background-color: #f7f8fa;
+}
+
+.activity-list {
+  padding: 10px;
+}
+
+.activity-card {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.activity-cover {
+  width: 100%;
+  height: 160px;
+  background-color: #f5f5f5;
+}
+
+.activity-info {
+  padding: 12px;
+}
+
+.activity-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.activity-meta {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.activity-meta van-icon {
+  margin-right: 4px;
+}
+
+.activity-footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.participants-count {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.participants-count van-icon {
+  margin-right: 4px;
+}
+
+.loading,
+.empty-state {
+  padding: 32px 0;
+  text-align: center;
+}

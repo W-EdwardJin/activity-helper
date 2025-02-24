@@ -1,0 +1,19 @@
+{
+  "name": "activity-helper",
+  "version": "1.0.0",
+  "description": "活动组织小助手 - 微信小程序",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "微信小程序",
+    "活动组织",
+    "社交"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vant/weapp": "^1.11.7"
+  }
+}

@@ -1,0 +1,46 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <!-- 活动类型筛选 -->
+  <van-tabs active="{{ activeType }}" bind:change="onTypeChange" sticky>
+    <van-tab wx:for="{{ types }}" wx:key="value"
+      name="{{ item.value }}" title="{{ item.text }}">
+    </van-tab>
+  </van-tabs>
+
+  <!-- 活动列表 -->
+  <view class="activity-list">
+    <block wx:if="{{ !loading && activities.length > 0 }}">
+      <van-cell-group wx:for="{{ activities }}" wx:key="_id"
+        bindtap="goToDetail" data-id="{{ item._id }}" custom-class="activity-card">
+        <!-- 活动封面 -->
+        <image wx:if="{{ item.coverUrl }}" src="{{ item.coverUrl }}" mode="aspectFill" class="activity-cover"/>
+        <!-- 活动信息 -->
+        <view class="activity-info">
+          <view class="activity-title">{{ item.title }}</view>
+          <view class="activity-meta">
+            <van-icon name="clock-o" /> {{ item.startTime }}
+          </view>
+          <view class="activity-meta">
+            <van-icon name="location-o" /> {{ item.location }}
+          </view>
+          <view class="activity-footer">
+            <van-tag type="primary" size="medium">{{ item.type }}</van-tag>
+            <view class="participants-count">
+              <van-icon name="friends-o" /> {{ item.currentParticipants }}/{{ item.maxParticipants }}
+            </view>
+          </view>
+        </view>
+      </van-cell-group>
+    </block>
+
+    <!-- 加载中状态 -->
+    <view wx:if="{{ loading }}" class="loading">
+      <van-loading type="spinner" color="#1296db" />
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{ !loading && activities.length === 0 }}" class="empty-state">
+      <van-empty description="暂无活动" />
+    </view>
+  </view>
+</view>
