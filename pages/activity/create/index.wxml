@@ -1,15 +1,55 @@
 <view class="container">
-  <van-form bind:submit="onSubmit">
+  <form bindsubmit="onSubmit">
     <!-- 基本信息 -->
     <van-cell-group title="基本信息">
       <van-field
         name="title"
         label="活动标题"
         placeholder="请输入活动标题"
-        model:value="{{ activityTitle }}"
-        rules="{{ [{required: true, message: '请输入活动标题'}] }}"
+
       />
       
+      <van-field
+        name="startTime"
+        label="开始时间"
+        placeholder="请选择开始时间"
+        readonly
+        value="{{ startTime }}"
+        bindtap="showStartTimePicker"
+
+      />
+      
+      <van-field
+        name="endTime"
+        label="结束时间"
+        placeholder="请选择结束时间"
+        readonly
+        value="{{ endTime }}"
+        bindtap="showEndTimePicker"
+
+      />
+      
+      <van-field
+        name="location"
+        label="活动地点"
+        placeholder="请输入活动地点"
+        value="{{ location }}"
+      >
+        <van-button slot="button" size="small" type="primary" bind:click="chooseLocation">选择地点</van-button>
+      </van-field>
+      
+      <van-field
+        name="description"
+        label="活动描述"
+        type="textarea"
+        placeholder="请输入活动描述"
+        autosize
+
+      />
+    </van-cell-group>
+
+    <!-- 活动设置 -->
+    <van-cell-group title="活动设置">
       <van-field
         name="type"
         label="活动类型"
@@ -17,7 +57,7 @@
         readonly
         value="{{ activityType }}"
         bindtap="showActivityTypePicker"
-        rules="{{ [{required: true, message: '请选择活动类型'}] }}"
+
       />
 
       <van-field
@@ -88,9 +128,9 @@
 
     <!-- 提交按钮 -->
     <view class="submit-btn">
-      <van-button round block type="primary" form-type="submit">创建活动</van-button>
+      <button class="submit-button" form-type="submit">创建活动</button>
     </view>
-  </van-form>
+  </form>
 
   <!-- 活动类型选择器 -->
   <van-popup show="{{ showActivityTypePicker }}" position="bottom" bind:close="closeActivityTypePicker">

@@ -10,6 +10,8 @@ Page({
     maxParticipants: 20,
     activityDetails: '',
     fileList: [],
+    maxParticipants: '',
+    location: '', // 活动地点
 
     // 时间选择器相关
     currentDate: new Date().getTime(),
@@ -176,6 +178,33 @@ Page({
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}`;
+  },
+  // 选择地点
+  chooseLocation() {
+    wx.chooseLocation({
+      success: (res) => {
+        this.setData({
+          location: res.name + ' - ' + res.address
+        });
+      },
+      fail: (err) => {
+        wx.showToast({
+          title: '选择地点失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  formatDate(date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}`;
   }
 })
