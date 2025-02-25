@@ -33,8 +33,10 @@
         name="location"
         label="活动地点"
         placeholder="请输入活动地点"
-
-      />
+        value="{{ location }}"
+      >
+        <van-button slot="button" size="small" type="primary" bind:click="chooseLocation">选择地点</van-button>
+      </van-field>
       
       <van-field
         name="description"
