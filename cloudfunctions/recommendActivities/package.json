@@ -1,0 +1,11 @@
+{
+  "name": "recommendActivities",
+  "version": "1.0.0",
+  "description": "活动推荐云函数",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "axios": "^1.6.0"
+  }
+}

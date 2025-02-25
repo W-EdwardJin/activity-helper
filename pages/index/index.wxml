@@ -29,6 +29,10 @@
               <van-icon name="friends-o" /> {{ item.currentParticipants }}/{{ item.maxParticipants }}
             </view>
           </view>
+          <!-- 推荐原因 -->
+          <view wx:if="{{ activeType === 'recommend' && item.recommendReason }}" class="recommend-reason">
+            <van-icon name="award" color="#ff6b81" /> {{ item.recommendReason }}
+          </view>
         </view>
       </van-cell-group>
     </block>

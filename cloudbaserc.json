@@ -1,5 +1,5 @@
 {
-  "envId": "your-env-id",
+  "envId": "social-activity-help-2be86b6c5aa",
   "functionRoot": "cloudfunctions",
   "functions": [
     {
@@ -18,6 +18,15 @@
         "envVariables": {},
         "runtime": "Nodejs12.16",
         "memorySize": 128
+      }
+    },
+    {
+      "name": "recommendActivities",
+      "config": {
+        "timeout": 60,
+        "envVariables": {},
+        "runtime": "Nodejs12.16",
+        "memorySize": 256
       }
     }
   ]

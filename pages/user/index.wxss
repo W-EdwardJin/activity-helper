@@ -5,12 +5,14 @@
 }
 
 .user-card {
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .avatar {
@@ -18,19 +20,20 @@
   height: 80px;
   border-radius: 50%;
   margin-bottom: 12px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nickname {
   font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
+  color: #333333;
   margin-bottom: 8px;
 }
 
 .phone {
   font-size: 14px;
-  color: #666;
-  margin-bottom: 16px;
+  color: #666666;
 }
 
 .logout-btn {
@@ -38,6 +41,14 @@
   padding: 0 16px;
 }
 
-van-cell-group {
-  margin-bottom: 16px;
+.van-cell-group {
+  margin-bottom: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.van-cell-group__title {
+  padding: 16px 16px 8px;
+  font-size: 14px;
+  color: #666666;
 }

@@ -3,9 +3,9 @@ Page({
   data: {
     activities: [],
     loading: true,
-    activeType: 'all',
+    activeType: 'recommend',
     types: [
-      { text: '全部', value: 'all' },
+      { text: '推荐', value: 'recommend' },
       { text: '运动', value: 'sports' },
       { text: '聚餐', value: 'dinner' },
       { text: '聚会', value: 'party' }
@@ -25,24 +25,42 @@ Page({
     try {
       this.setData({ loading: true })
       const db = wx.cloud.database()
-      let query = db.collection('activity')
       
-      // 根据类型筛选
-      if (this.data.activeType !== 'all') {
-        query = query.where({
-          type: this.data.activeType
+      // if (this.data.activeType === 'recommend') {
+      //   // 调用推荐云函数
+      //   const app = getApp()
+      //   const result = await wx.cloud.callFunction({
+      //     name: 'recommendActivities',
+      //     data: {
+      //       userInfo: app.globalData.userInfo || {}
+      //     }
+      //   })
+        
+      //   if (result.result.success) {
+      //     this.setData({
+      //       activities: result.result.data,
+      //       loading: false
+      //     })
+      //   } else {
+      //     throw new Error('获取推荐活动失败')
+      //   }
+      // } else {
+        // 原有的活动列表加载逻辑
+        let query = db.collection('activity')
+        if (this.data.activeType !== 'all') {
+          query = query.where({
+            type: this.data.activeType
+          })
+        }
+        const activities = await query
+          .orderBy('createTime', 'desc')
+          .get()
+
+        this.setData({
+          activities: activities.data,
+          loading: false
         })
-      }
-
-      // 按创建时间倒序排列
-      const activities = await query
-        .orderBy('createTime', 'desc')
-        .get()
-
-      this.setData({
-        activities: activities.data,
-        loading: false
-      })
+      // }
 
       wx.stopPullDownRefresh()
     } catch (err) {

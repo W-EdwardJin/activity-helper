@@ -1,2 +1,20 @@
-<!--pages/user/login/index.wxml-->
-<text>pages/user/login/index.wxml</text>
+<view class="container">
+  <view class="logo-section">
+    <image class="logo" src="/assets/images/logo.png" mode="aspectFit"/>
+    <text class="title">活动组织小助手</text>
+    <text class="subtitle">让活动组织更简单</text>
+  </view>
+
+  <view class="login-section">
+    <button class="wechat-login-btn" bindtap="handleLogin" disabled="{{isLoading}}">
+      <image class="wechat-icon" src="../../../assets/images/wechat.png" mode="aspectFit"/>
+      微信快捷登录
+    </button>
+  </view>
+
+  <view class="agreement-text">
+    登录即表示同意 <text class="link">《用户协议》</text> 和 <text class="link">《隐私政策》</text>
+  </view>
+
+  <van-toast id="van-toast" />
+</view>

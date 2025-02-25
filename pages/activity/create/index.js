@@ -4,21 +4,34 @@ Page({
     // 表单数据
     activityTitle: '',
     activityType: '',
-    activityDate: '',
-    activityTime: '',
+    startTime: '',
+    endTime: '',
     location: '',
     maxParticipants: 20,
     activityDetails: '',
     fileList: [],
-    maxParticipants: '',
     location: '', // 活动地点
 
     // 时间选择器相关
     currentDate: new Date().getTime(),
     currentTime: '12:00',
     minDate: new Date().getTime(),
-    showDatePicker: false,
-    showTimePicker: false,
+    showStartTimePicker: false,
+    showEndTimePicker: false,
+    formatter: function(type, value) {
+      if (type === 'year') {
+        return value + '年';
+      } else if (type === 'month') {
+        return value + '月';
+      } else if (type === 'day') {
+        return value + '日';
+      } else if (type === 'hour') {
+        return value + '时';
+      } else if (type === 'minute') {
+        return value + '分';
+      }
+      return value;
+    },
 
     // 活动类型选择器
     showActivityTypePicker: false,
@@ -64,19 +77,37 @@ Page({
     });
   },
 
-  // 时间选择器
-  showTimePicker() {
-    this.setData({ showTimePicker: true });
+  // 开始时间选择器
+  showStartTimePicker() {
+    this.setData({ showStartTimePicker: true });
   },
 
-  closeTimePicker() {
-    this.setData({ showTimePicker: false });
+  closeStartTimePicker() {
+    this.setData({ showStartTimePicker: false });
   },
 
-  onTimeConfirm(event) {
+  onStartTimeConfirm(event) {
+    const date = new Date(event.detail);
     this.setData({
-      activityTime: event.detail,
-      showTimePicker: false
+      startTime: this.formatDate(date),
+      showStartTimePicker: false
+    });
+  },
+
+  // 结束时间选择器
+  showEndTimePicker() {
+    this.setData({ showEndTimePicker: true });
+  },
+
+  closeEndTimePicker() {
+    this.setData({ showEndTimePicker: false });
+  },
+
+  onEndTimeConfirm(event) {
+    const date = new Date(event.detail);
+    this.setData({
+      endTime: this.formatDate(date),
+      showEndTimePicker: false
     });
   },
 
@@ -139,21 +170,74 @@ Page({
     const formData = event.detail.value;
     const { fileList } = this.data;
 
+    // 表单验证
+    if (!formData.title) {
+      wx.showToast({
+        title: '请输入活动标题',
+        icon: 'none'
+      });
+      return;
+    }
+
+    if (!this.data.startTime) {
+      wx.showToast({
+        title: '请选择开始时间',
+        icon: 'none'
+      });
+      return;
+    }
+
+    if (!this.data.endTime) {
+      wx.showToast({
+        title: '请选择结束时间',
+        icon: 'none'
+      });
+      return;
+    }
+
+    if (!formData.location) {
+      wx.showToast({
+        title: '请选择活动地点',
+        icon: 'none'
+      });
+      return;
+    }
+
+    if (!this.data.activityType) {
+      wx.showToast({
+        title: '请选择活动类型',
+        icon: 'none'
+      });
+      return;
+    }
+
+
+
+    const userId = wx.getStorageSync('userId');
+    if (!userId) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     try {
       const db = wx.cloud.database();
       await db.collection('activities').add({
         data: {
           title: formData.title,
-          type: formData.type,
-          date: formData.date,
-          time: formData.time,
+          type: this.data.activityType,
+          startTime: this.data.startTime,
+          endTime: this.data.endTime,
           location: formData.location,
-          maxParticipants: this.data.maxParticipants,
+          maxParticipants: parseInt(this.data.maxParticipants) || 20,
           details: formData.details,
           coverImage: fileList[0]?.url || '',
-          creatorId: wx.getStorageSync('userId'),
+          creatorId: userId,
           status: '报名中',
-          createTime: db.serverDate()
+          createTime: db.serverDate(),
+          participants: []
         }
       });
 
@@ -166,9 +250,10 @@ Page({
         wx.navigateBack();
       }, 1500);
     } catch (error) {
+      console.error('创建活动失败:', error);
       wx.showToast({
-        title: '创建失败',
-        icon: 'error'
+        title: error.message || '创建失败，请稍后重试',
+        icon: 'none'
       });
     }
   },
