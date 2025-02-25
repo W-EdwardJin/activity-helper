@@ -2,59 +2,30 @@
 Page({
   data: {
     // 表单数据
-    startTime: '',
-    endTime: '',
+    activityTitle: '',
     activityType: '',
+    activityDate: '',
+    activityTime: '',
+    location: '',
+    maxParticipants: 20,
+    activityDetails: '',
     fileList: [],
-    maxParticipants: '',
 
     // 时间选择器相关
     currentDate: new Date().getTime(),
+    currentTime: '12:00',
     minDate: new Date().getTime(),
-    showStartTimePicker: false,
-    showEndTimePicker: false,
+    showDatePicker: false,
+    showTimePicker: false,
 
     // 活动类型选择器
     showActivityTypePicker: false,
     activityTypes: ['聚会', '运动', '聚餐', '旅行', '会议', '其他'],
 
-    // 上传相关
-    uploadPath: 'activity-covers/',
-    cloudPath: ''
-  },
-
-  // 开始时间选择器
-  showStartTimePicker() {
-    this.setData({ showStartTimePicker: true });
-  },
-
-  closeStartTimePicker() {
-    this.setData({ showStartTimePicker: false });
-  },
-
-  onStartTimeConfirm(event) {
-    const date = new Date(event.detail);
-    this.setData({
-      startTime: this.formatDate(date),
-      showStartTimePicker: false
-    });
-  },
-
-  // 结束时间选择器
-  showEndTimePicker() {
-    this.setData({ showEndTimePicker: true });
-  },
-
-  closeEndTimePicker() {
-    this.setData({ showEndTimePicker: false });
-  },
-
-  onEndTimeConfirm(event) {
-    const date = new Date(event.detail);
-    this.setData({
-      endTime: this.formatDate(date),
-      showEndTimePicker: false
-    });
+    // 地图选择器
+    showLocationPicker: false,
+    latitude: 39.9,
+    longitude: 116.4
   },
 
   // 活动类型选择器
@@ -71,6 +42,61 @@ Page({
     this.setData({
       activityType: value,
       showActivityTypePicker: false
+    });
+  },
+
+  // 日期选择器
+  showDatePicker() {
+    this.setData({ showDatePicker: true });
+  },
+
+  closeDatePicker() {
+    this.setData({ showDatePicker: false });
+  },
+
+  onDateConfirm(event) {
+    const date = new Date(event.detail);
+    this.setData({
+      activityDate: this.formatDate(date),
+      showDatePicker: false
+    });
+  },
+
+  // 时间选择器
+  showTimePicker() {
+    this.setData({ showTimePicker: true });
+  },
+
+  closeTimePicker() {
+    this.setData({ showTimePicker: false });
+  },
+
+  onTimeConfirm(event) {
+    this.setData({
+      activityTime: event.detail,
+      showTimePicker: false
+    });
+  },
+
+  // 地点选择器
+  showLocationPicker() {
+    this.setData({ showLocationPicker: true });
+  },
+
+  closeLocationPicker() {
+    this.setData({ showLocationPicker: false });
+  },
+
+  chooseLocation() {
+    wx.chooseLocation({
+      success: (res) => {
+        this.setData({
+          location: res.address,
+          latitude: res.latitude,
+          longitude: res.longitude,
+          showLocationPicker: false
+        });
+      }
     });
   },
 
@@ -113,13 +139,18 @@ Page({
 
     try {
       const db = wx.cloud.database();
-      await db.collection('activity').add({
+      await db.collection('activities').add({
         data: {
-          ...formData,
+          title: formData.title,
+          type: formData.type,
+          date: formData.date,
+          time: formData.time,
+          location: formData.location,
+          maxParticipants: this.data.maxParticipants,
+          details: formData.details,
           coverImage: fileList[0]?.url || '',
           creatorId: wx.getStorageSync('userId'),
           status: '报名中',
-          currentParticipants: 0,
           createTime: db.serverDate()
         }
       });
@@ -145,8 +176,6 @@ Page({
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minute = date.getMinutes().toString().padStart(2, '0');
-    return `${year}-${month}-${day} ${hour}:${minute}`;
+    return `${year}-${month}-${day}`;
   }
 })

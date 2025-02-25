@@ -55,8 +55,6 @@ Page({
         }
       }
     });
-  }
-
   },
 
   /**
@@ -72,4 +70,4 @@ Page({
   onShareAppMessage() {
 
   }
-})
+});

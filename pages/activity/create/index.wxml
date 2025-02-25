@@ -6,48 +6,10 @@
         name="title"
         label="活动标题"
         placeholder="请输入活动标题"
+        model:value="{{ activityTitle }}"
         rules="{{ [{required: true, message: '请输入活动标题'}] }}"
       />
       
-      <van-field
-        name="startTime"
-        label="开始时间"
-        placeholder="请选择开始时间"
-        readonly
-        value="{{ startTime }}"
-        bindtap="showStartTimePicker"
-        rules="{{ [{required: true, message: '请选择开始时间'}] }}"
-      />
-      
-      <van-field
-        name="endTime"
-        label="结束时间"
-        placeholder="请选择结束时间"
-        readonly
-        value="{{ endTime }}"
-        bindtap="showEndTimePicker"
-        rules="{{ [{required: true, message: '请选择结束时间'}] }}"
-      />
-      
-      <van-field
-        name="location"
-        label="活动地点"
-        placeholder="请输入活动地点"
-        rules="{{ [{required: true, message: '请输入活动地点'}] }}"
-      />
-      
-      <van-field
-        name="description"
-        label="活动描述"
-        type="textarea"
-        placeholder="请输入活动描述"
-        autosize
-        rules="{{ [{required: true, message: '请输入活动描述'}] }}"
-      />
-    </van-cell-group>
-
-    <!-- 活动设置 -->
-    <van-cell-group title="活动设置">
       <van-field
         name="type"
         label="活动类型"
@@ -57,12 +19,47 @@
         bindtap="showActivityTypePicker"
         rules="{{ [{required: true, message: '请选择活动类型'}] }}"
       />
-      
+
       <van-field
         name="maxParticipants"
         label="人数限制"
         type="number"
-        placeholder="请输入人数限制（选填）"
+        value="{{ maxParticipants }}"
+        placeholder="请输入人数限制"
+        rules="{{ [{required: true, message: '请输入人数限制'}] }}"
+      />
+    </van-cell-group>
+
+    <!-- 活动设置 -->
+    <van-cell-group title="活动设置">
+      <van-field
+        name="date"
+        label="活动日期"
+        placeholder="请选择活动日期"
+        readonly
+        value="{{ activityDate }}"
+        bindtap="showDatePicker"
+        rules="{{ [{required: true, message: '请选择活动日期'}] }}"
+      />
+      
+      <van-field
+        name="time"
+        label="活动时间"
+        placeholder="请选择活动时间"
+        readonly
+        value="{{ activityTime }}"
+        bindtap="showTimePicker"
+        rules="{{ [{required: true, message: '请选择活动时间'}] }}"
+      />
+      
+      <van-field
+        name="location"
+        label="活动地点"
+        placeholder="请输入活动地点"
+        readonly
+        value="{{ location }}"
+        bindtap="showLocationPicker"
+        rules="{{ [{required: true, message: '请选择活动地点'}] }}"
       />
     </van-cell-group>
 
@@ -77,32 +74,23 @@
       />
     </view>
 
+    <!-- 活动详情 -->
+    <van-cell-group title="活动详情">
+      <van-field
+        name="details"
+        type="textarea"
+        placeholder="请输入活动详情"
+        autosize="{{ { minHeight: 100, maxHeight: 200 } }}"
+        model:value="{{ activityDetails }}"
+        rules="{{ [{required: true, message: '请输入活动详情'}] }}"
+      />
+    </van-cell-group>
+
     <!-- 提交按钮 -->
     <view class="submit-btn">
       <van-button round block type="primary" form-type="submit">创建活动</van-button>
     </view>
   </van-form>
-
-  <!-- 时间选择器 -->
-  <van-popup show="{{ showStartTimePicker }}" position="bottom" bind:close="closeStartTimePicker">
-    <van-datetime-picker
-      type="datetime"
-      value="{{ currentDate }}"
-      min-date="{{ minDate }}"
-      bind:confirm="onStartTimeConfirm"
-      bind:cancel="closeStartTimePicker"
-    />
-  </van-popup>
-
-  <van-popup show="{{ showEndTimePicker }}" position="bottom" bind:close="closeEndTimePicker">
-    <van-datetime-picker
-      type="datetime"
-      value="{{ currentDate }}"
-      min-date="{{ minDate }}"
-      bind:confirm="onEndTimeConfirm"
-      bind:cancel="closeEndTimePicker"
-    />
-  </van-popup>
 
   <!-- 活动类型选择器 -->
   <van-popup show="{{ showActivityTypePicker }}" position="bottom" bind:close="closeActivityTypePicker">
@@ -112,5 +100,38 @@
       bind:cancel="closeActivityTypePicker"
       show-toolbar
     />
+  </van-popup>
+
+  <!-- 日期选择器 -->
+  <van-popup show="{{ showDatePicker }}" position="bottom" bind:close="closeDatePicker">
+    <van-datetime-picker
+      type="date"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="closeDatePicker"
+    />
+  </van-popup>
+
+  <!-- 时间选择器 -->
+  <van-popup show="{{ showTimePicker }}" position="bottom" bind:close="closeTimePicker">
+    <van-datetime-picker
+      type="time"
+      value="{{ currentTime }}"
+      bind:confirm="onTimeConfirm"
+      bind:cancel="closeTimePicker"
+    />
+  </van-popup>
+
+  <!-- 地图选择器 -->
+  <van-popup show="{{ showLocationPicker }}" position="bottom" bind:close="closeLocationPicker">
+    <map
+      id="locationMap"
+      style="width: 100%; height: 300px;"
+      latitude="{{ latitude }}"
+      longitude="{{ longitude }}"
+      show-location
+      bindtap="chooseLocation"
+    ></map>
   </van-popup>
 </view>

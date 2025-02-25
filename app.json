@@ -14,27 +14,27 @@
   },
   "tabBar": {
     "custom": false,
-    "color": "#999999",
-    "selectedColor": "#1296db",
+    "color": "#2c2c2c",
+    "selectedColor": "#ff4400",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "assets/images/home.png",
-        "selectedIconPath": "assets/images/home-active.png"
+        "selectedIconPath": "assets/images/home_active.png"
       },
       {
         "pagePath": "pages/activity/create/index",
         "text": "发布",
-        "iconPath": "assets/images/create.png",
-        "selectedIconPath": "assets/images/create-active.png"
+        "iconPath": "assets/images/add.png",
+        "selectedIconPath": "assets/images/add_active.png"
       },
       {
         "pagePath": "pages/user/index",
         "text": "我的",
-        "iconPath": "assets/images/user.png",
-        "selectedIconPath": "assets/images/user-active.png"
+        "iconPath": "assets/images/mine.png",
+        "selectedIconPath": "assets/images/mine_active.png"
       }
     ]
   },
