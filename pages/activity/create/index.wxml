@@ -1,12 +1,12 @@
 <view class="container">
-  <van-form bind:submit="onSubmit">
+  <form bindsubmit="onSubmit">
     <!-- 基本信息 -->
     <van-cell-group title="基本信息">
       <van-field
         name="title"
         label="活动标题"
         placeholder="请输入活动标题"
-        rules="{{ [{required: true, message: '请输入活动标题'}] }}"
+
       />
       
       <van-field
@@ -16,7 +16,7 @@
         readonly
         value="{{ startTime }}"
         bindtap="showStartTimePicker"
-        rules="{{ [{required: true, message: '请选择开始时间'}] }}"
+
       />
       
       <van-field
@@ -26,14 +26,14 @@
         readonly
         value="{{ endTime }}"
         bindtap="showEndTimePicker"
-        rules="{{ [{required: true, message: '请选择结束时间'}] }}"
+
       />
       
       <van-field
         name="location"
         label="活动地点"
         placeholder="请输入活动地点"
-        rules="{{ [{required: true, message: '请输入活动地点'}] }}"
+
       />
       
       <van-field
@@ -42,7 +42,7 @@
         type="textarea"
         placeholder="请输入活动描述"
         autosize
-        rules="{{ [{required: true, message: '请输入活动描述'}] }}"
+
       />
     </van-cell-group>
 
@@ -55,7 +55,7 @@
         readonly
         value="{{ activityType }}"
         bindtap="showActivityTypePicker"
-        rules="{{ [{required: true, message: '请选择活动类型'}] }}"
+
       />
       
       <van-field
@@ -79,9 +79,9 @@
 
     <!-- 提交按钮 -->
     <view class="submit-btn">
-      <van-button round block type="primary" form-type="submit">创建活动</van-button>
+      <button class="submit-button" form-type="submit">创建活动</button>
     </view>
-  </van-form>
+  </form>
 
   <!-- 时间选择器 -->
   <van-popup show="{{ showStartTimePicker }}" position="bottom" bind:close="closeStartTimePicker">
