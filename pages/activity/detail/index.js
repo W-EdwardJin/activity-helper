@@ -50,31 +50,60 @@ Page({
         })
         .get()
 
-      // 获取所有参与者的用户信息
-      const userIds = enrollments.data.map(e => e.userId)
+      // 获取所有参与者的用户信息（包括创建者）
+      const userIds = [...enrollments.data.map(e => e.userId)]
+      
+      // 添加创建者ID到用户ID列表
+      if (this.data.activity && this.data.activity.creatorId) {
+        userIds.push(this.data.activity.creatorId)
+      }
+      
       const users = await db.collection('user')
         .where({
           _id: db.command.in(userIds)
         })
         .get()
 
-      // 合并报名状态和用户信息
-      const participants = enrollments.data.map(enrollment => {
+      // 合并报名状态和用户信息（包括创建者）
+      let participants = enrollments.data.map(enrollment => {
         const user = users.data.find(u => u._id === enrollment.userId)
         return {
           ...enrollment,
-          ...user
+          ...user,
+          isCreator: false
         }
       })
+      
+      // 添加创建者到参与者列表
+      if (this.data.activity && this.data.activity.creatorId) {
+        const creator = users.data.find(u => u._id === this.data.activity.creatorId)
+        if (creator) {
+          participants.unshift({
+            ...creator,
+            isCreator: true,
+            userId: creator._id,
+            activityId: this.activityId
+          })
+        }
+      }
 
       // 检查当前用户是否已报名
       const app = getApp()
       const isEnrolled = participants.some(p => p.userId === app.globalData.userInfo._id)
 
-      this.setData({
-        participants,
-        hasJoined: isEnrolled
-      })
+      // 更新活动的当前参与人数
+      if (this.data.activity) {
+        this.setData({
+          'activity.currentParticipants': participants.length,
+          participants,
+          hasJoined: isEnrolled
+        })
+      } else {
+        this.setData({
+          participants,
+          hasJoined: isEnrolled
+        })
+      }
     } catch (err) {
       console.error('加载参与者列表失败：', err)
     }

@@ -223,7 +223,7 @@ Page({
 
     try {
       const db = wx.cloud.database();
-      await db.collection('activity').add({
+      const result = await db.collection('activity').add({
         data: {
           title: formData.title,
           type: this.data.activityType,
@@ -236,7 +236,18 @@ Page({
           creatorId: app.globalData.userInfo._id,
           status: '报名中',
           createTime: db.serverDate(),
-          participants: []
+          participants: [app.globalData.userInfo._id],
+          currentParticipants: 1
+        }
+      });
+
+      // 自动为创建者添加报名记录
+      await db.collection('enrollment').add({
+        data: {
+          activityId: result._id,
+          userId: app.globalData.userInfo._id,
+          status: 'confirmed',
+          createTime: db.serverDate()
         }
       });
 
@@ -245,9 +256,10 @@ Page({
         icon: 'success'
       });
 
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1500);
+      // 跳转到活动详情页
+      wx.redirectTo({
+        url: `/pages/activity/detail/index?id=${result._id}`
+      });
     } catch (error) {
       console.error('创建活动失败:', error);
       wx.showToast({

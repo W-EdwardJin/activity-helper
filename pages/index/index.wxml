@@ -26,7 +26,7 @@
           <view class="activity-footer">
             <van-tag type="primary" size="medium">{{ item.type }}</van-tag>
             <view class="participants-count">
-              <van-icon name="friends-o" /> {{ item.currentParticipants }}/{{ item.maxParticipants }}
+              <van-icon name="friends-o" /> {{ (item.currentParticipants || 0) + 1 }}/{{ item.maxParticipants }}
             </view>
           </view>
           <!-- 推荐原因 -->

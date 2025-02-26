@@ -81,6 +81,11 @@
   display: block;
 }
 
+.join-button.joined {
+  background: #cccccc;
+  background-image: none;
+}
+
 .loading {
   padding: 32px 0;
   text-align: center;
