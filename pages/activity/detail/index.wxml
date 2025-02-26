@@ -59,7 +59,8 @@
   <!-- 底部固定按钮 -->
   <view class="bottom-button-container">
     <button class="join-button {{ hasJoined ? 'joined' : '' }}" 
-            bindtap="{{ !hasJoined ? 'enroll' : '' }}">
+            bindtap="{{ !hasJoined ? 'enroll' : '' }}"
+            disabled="{{hasJoined}}">
       {{ hasJoined ? '已加入' : '加入' }}
     </button>
   </view>

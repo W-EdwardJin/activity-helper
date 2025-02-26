@@ -67,7 +67,7 @@
 }
 
 .join-button {
-  width: 100%;
+  width: 60%;
   height: 88rpx;
   line-height: 88rpx;
   text-align: center;
@@ -77,6 +77,8 @@
   font-weight: bold;
   background: linear-gradient(to right, #ff9933, #ff6600);
   border: none;
+  margin: 0 auto;
+  display: block;
 }
 
 .loading {
