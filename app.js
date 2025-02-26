@@ -38,12 +38,14 @@ App({
             // 调用云函数登录
             wx.cloud.callFunction({
               name: 'login',
-              data: { code: res.code },
               success: (result) => {
-                this.globalData.userInfo = result.result.userInfo
-                this.globalData.isLoggedIn = true
-                wx.setStorageSync('userInfo', result.result.userInfo)
-                resolve(result.result)
+                if (result.result.success) {
+                  // 只更新登录状态，用户信息将在获取用户授权后更新
+                  this.globalData.isLoggedIn = true
+                  resolve(result.result)
+                } else {
+                  reject(new Error('登录失败'))
+                }
               },
               fail: (err) => {
                 console.error('登录失败：', err)

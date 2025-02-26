@@ -1,0 +1,30 @@
+<!-- pages/activity/my-created/index.wxml -->
+<view class="container">
+  <!-- 活动列表 -->
+  <view class="activity-list" wx:if="{{!loading && activities.length > 0}}">
+    <view class="activity-item" wx:for="{{activities}}" wx:key="_id" bindtap="goToDetail" data-id="{{item._id}}">
+      <view class="activity-content">
+        <image class="activity-image" src="{{item.coverUrl || '/assets/images/default_cover.png'}}" mode="aspectFill"></image>
+        <view class="activity-info">
+          <view class="activity-title">{{item.title}}</view>
+          <view class="activity-time">时间：{{item.startTime}}</view>
+          <view class="activity-location">地点：{{item.location}}</view>
+          <view class="activity-participants">参与人数：{{item.currentParticipants}}/{{item.maxParticipants}}</view>
+        </view>
+      </view>
+      <view class="activity-actions">
+        <button class="delete-btn" catchtap="deleteActivity" data-id="{{item._id}}" data-title="{{item.title}}">删除</button>
+      </view>
+    </view>
+    <!-- 加载更多提示 -->
+    <view class="loading-more" wx:if="{{hasMore}}">加载更多...</view>
+    <view class="no-more" wx:else>没有更多了</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && activities.length === 0}}">
+    <image src="/assets/images/empty.png"></image>
+    <text>还没有创建过活动哦</text>
+    <navigator url="/pages/activity/create/index" open-type="switchTab" class="create-btn">去创建</navigator>
+  </view>
+</view>

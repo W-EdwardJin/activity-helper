@@ -1,0 +1,43 @@
+<!-- pages/about/index.wxml -->
+<view class="container">
+  <!-- Logo部分 -->
+  <view class="logo-section">
+    <image src="/assets/images/logo.png" mode="aspectFit" class="logo"/>
+    <view class="app-name">活动助手</view>
+    <text class="description">便捷的活动管理与组织平台</text>
+  </view>
+
+  <!-- 介绍部分 -->
+  <van-cell-group>
+    <van-cell>
+      <view class="description">
+        活动助手致力于为用户提供简单高效的活动管理体验。无论是创建活动、组织活动，还是参与活动，我们都将为您带来流畅便捷的使用体验。
+      </view>
+    </van-cell>
+  </van-cell-group>
+
+  <!-- 功能特点 -->
+  <van-cell-group title="主要功能">
+    <van-cell title="活动创建" icon="edit" label="轻松创建和管理您的活动"/>
+    <van-cell title="活动报名" icon="friends-o" label="便捷参与感兴趣的活动"/>
+    <van-cell title="活动管理" icon="todo-list-o" label="高效管理活动报名和参与情况"/>
+  </van-cell-group>
+
+  <!-- 联系方式 -->
+  <van-cell-group title="联系我们">
+    <van-cell title="微信公众号" icon="chat-o">
+      <image slot="right-icon" src="/assets/images/wechat.png" mode="aspectFit" class="qr-code"/>
+    </van-cell>
+    <van-cell title="意见反馈" icon="comment-o" value="欢迎提供您的宝贵意见"/>
+  </van-cell-group>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>版本 1.0.0</text>
+  </view>
+  
+  <!-- Powered By -->
+  <view class="powered-by">
+    <text>Powered By π=3</text>
+  </view>
+</view>

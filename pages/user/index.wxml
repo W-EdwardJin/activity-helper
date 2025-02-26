@@ -14,17 +14,17 @@
 
   <!-- 功能列表 -->
   <van-cell-group title="我的活动">
-    <van-cell title="我创建的活动" is-link url="/pages/activity/my-created/index"
+    <van-cell title="我创建的活动" is-link bind:tap="handleNavigation" data-url="/pages/activity/my-created/index"
       icon="todo-list-o"/>
-    <van-cell title="我参与的活动" is-link url="/pages/activity/my-joined/index"
+    <van-cell title="我参与的活动" is-link bind:tap="handleNavigation" data-url="/pages/activity/my-joined/index"
       icon="friends-o"/>
   </van-cell-group>
 
   <!-- 其他功能 -->
   <van-cell-group title="设置">
-    <van-cell title="个人资料" is-link url="/pages/user/profile/index"
+    <van-cell title="个人资料" is-link bind:tap="handleNavigation" data-url="/pages/user/profile/index"
       icon="user-o"/>
-    <van-cell title="关于我们" is-link url="/pages/about/index"
+    <van-cell title="关于我们" is-link bind:tap="handleNavigation" data-url="/pages/about/index"
       icon="info-o"/>
   </van-cell-group>
 

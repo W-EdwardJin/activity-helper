@@ -4,7 +4,11 @@
     "pages/activity/create/index",
     "pages/activity/detail/index",
     "pages/user/index",
-    "pages/user/login/index"
+    "pages/user/login/index",
+    "pages/activity/my-created/index",
+    "pages/activity/my-joined/index",
+    "pages/user/profile/index",
+    "pages/about/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

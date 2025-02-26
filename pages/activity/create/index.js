@@ -167,6 +167,14 @@ Page({
 
   // 表单提交
   async onSubmit(event) {
+    const app = getApp();
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: '/pages/user/login/index'
+      });
+      return;
+    }
+
     const formData = event.detail.value;
     const { fileList } = this.data;
 
@@ -211,20 +219,11 @@ Page({
       return;
     }
 
-
-
-    const userId = wx.getStorageSync('userId');
-    if (!userId) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
+    // 用户登录状态已在前面验证，无需重复检查
 
     try {
       const db = wx.cloud.database();
-      await db.collection('activities').add({
+      await db.collection('activity').add({
         data: {
           title: formData.title,
           type: this.data.activityType,
@@ -234,7 +233,7 @@ Page({
           maxParticipants: parseInt(this.data.maxParticipants) || 20,
           details: formData.details,
           coverImage: fileList[0]?.url || '',
-          creatorId: userId,
+          creatorId: app.globalData.userInfo._id,
           status: '报名中',
           createTime: db.serverDate(),
           participants: []

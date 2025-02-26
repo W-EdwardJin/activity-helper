@@ -48,7 +48,13 @@ Page({
       content: '确定要退出登录吗？',
       success: (res) => {
         if (res.confirm) {
+          // 清除本地存储的用户信息
           wx.removeStorageSync('userInfo');
+          // 清除全局数据
+          const app = getApp();
+          app.globalData.userInfo = null;
+          app.globalData.isLoggedIn = false;
+          // 更新页面状态
           this.setData({
             isLoggedIn: false,
             userInfo: null
@@ -62,17 +68,31 @@ Page({
     });
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
+  // 检查登录状态并跳转
+  checkLoginAndNavigate(url) {
+    // 关于我们页面无需登录即可访问
+    if (url === '/pages/about/index') {
+      wx.navigateTo({ url });
+      return true;
+    }
+    
+    if (!this.data.isLoggedIn) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      setTimeout(() => {
+        this.goToLogin();
+      }, 1500);
+      return false;
+    }
+    wx.navigateTo({ url });
+    return true;
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  // 页面跳转处理函数
+  handleNavigation(e) {
+    const url = e.currentTarget.dataset.url;
+    this.checkLoginAndNavigate(url);
   }
-})
+});
