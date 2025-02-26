@@ -7,7 +7,7 @@
       "config": {
         "timeout": 5,
         "envVariables": {},
-        "runtime": "Nodejs12.16",
+        "runtime": "Nodejs10.15",
         "memorySize": 128
       }
     },
@@ -16,7 +16,7 @@
       "config": {
         "timeout": 5,
         "envVariables": {},
-        "runtime": "Nodejs12.16",
+        "runtime": "Nodejs10.15",
         "memorySize": 128
       }
     },
@@ -25,8 +25,17 @@
       "config": {
         "timeout": 60,
         "envVariables": {},
-        "runtime": "Nodejs12.16",
+        "runtime": "Nodejs10.15",
         "memorySize": 256
+      }
+    },
+    {
+      "name": "updateUserProfile",
+      "config": {
+        "timeout": 5,
+        "envVariables": {},
+        "runtime": "Nodejs10.15",
+        "memorySize": 128
       }
     }
   ]

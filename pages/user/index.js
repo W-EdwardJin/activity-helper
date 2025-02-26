@@ -15,12 +15,17 @@ Page({
 
   // 检查登录状态
   checkLoginStatus() {
-    const userInfo = wx.getStorageSync('userInfo');
+    const app = getApp();
+    // 优先从本地存储获取用户信息，因为登录成功后会先更新到本地存储
+    const userInfo = wx.getStorageSync('userInfo') || app.globalData.userInfo;
     if (userInfo) {
       this.setData({
         isLoggedIn: true,
         userInfo: userInfo
       });
+      // 确保全局数据与本地存储同步
+      app.globalData.userInfo = userInfo;
+      app.globalData.isLoggedIn = true;
     } else {
       this.setData({
         isLoggedIn: false,
