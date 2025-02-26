@@ -1,8 +1,8 @@
 <view class="container">
   <view class="logo-section">
     <image class="logo" src="/assets/images/logo.png" mode="aspectFit"/>
-    <text class="title">活动组织小助手</text>
-    <text class="subtitle">让活动组织更简单</text>
+    <text class="title">即聚</text>
+    <text class="subtitle">活动组织小助手，让活动组织更简单</text>
   </view>
 
   <view class="login-section">

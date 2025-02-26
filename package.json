@@ -1,7 +1,7 @@
 {
   "name": "activity-helper",
   "version": "1.0.0",
-  "description": "活动组织小助手 - 微信小程序",
+  "description": "即聚 - 微信小程序",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

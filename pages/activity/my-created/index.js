@@ -1,4 +1,6 @@
 // pages/activity/my-created/index.js
+const app = getApp()
+
 Page({
   data: {
     activities: [],
@@ -32,7 +34,6 @@ Page({
     // 如果正在加载或没有更多数据，直接返回
     if (this.data.loading || !this.data.hasMore) return
 
-    const app = getApp()
     if (!app.globalData.userInfo) {
       this.setData({ loading: false })
       wx.navigateTo({

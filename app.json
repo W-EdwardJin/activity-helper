@@ -13,7 +13,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "活动组织小助手",
+    "navigationBarTitleText": "即聚",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

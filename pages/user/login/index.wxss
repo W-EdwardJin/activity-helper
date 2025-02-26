@@ -24,9 +24,9 @@
 }
 
 .logo {
-  width: 140px;
-  height: 140px;
-  margin-bottom: 24px;
+  width: 240px;
+  height: 240px;
+  margin-bottom: -40px;
   border-radius: 28px;
 }
 
