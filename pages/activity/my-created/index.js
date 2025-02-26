@@ -53,6 +53,16 @@ Page({
         .where({
           creatorId: app.globalData.userInfo._id
         })
+        .field({
+          _id: true,
+          title: true,
+          startTime: true,
+          location: true,
+          maxParticipants: true,
+          currentParticipants: true,
+          coverUrl: true,
+          createTime: true
+        })
         .orderBy('createTime', 'desc')
         .skip((this.data.page - 1) * pageSize)
         .limit(pageSize)

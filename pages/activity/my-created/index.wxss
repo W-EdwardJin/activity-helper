@@ -24,6 +24,8 @@
   height: 200rpx;
   border-radius: 8rpx;
   margin-right: 60rpx;
+  object-fit: cover;
+  object-position: center;
 }
 
 .activity-info {

@@ -9,6 +9,7 @@
 
   <!-- 活动列表 -->
   <view class="activity-list">
+    <image src="/assets/images/logo.png" mode="aspectFit" class="logo"/>
     <block wx:if="{{ !loading && activities.length > 0 }}">
       <van-cell-group wx:for="{{ activities }}" wx:key="_id"
         bindtap="goToDetail" data-id="{{ item._id }}" custom-class="activity-card">
@@ -26,7 +27,7 @@
           <view class="activity-footer">
             <van-tag type="primary" size="medium">{{ item.type }}</van-tag>
             <view class="participants-count">
-              <van-icon name="friends-o" /> {{ (item.currentParticipants || 0) + 1 }}/{{ item.maxParticipants }}
+              <van-icon name="friends-o" /> {{ (item.currentParticipants || 0) }}/{{ item.maxParticipants }}
             </view>
           </view>
           <!-- 推荐原因 -->

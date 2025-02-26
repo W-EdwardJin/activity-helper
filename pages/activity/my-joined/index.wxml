@@ -4,7 +4,7 @@
   <view class="activity-list" wx:if="{{!loading && activities.length > 0}}">
     <view class="activity-item" wx:for="{{activities}}" wx:key="_id" bindtap="goToDetail" data-id="{{item._id}}">
       <view class="activity-content">
-        <image class="activity-image" src="{{item.coverUrl || '/assets/images/default_cover.png'}}" mode="aspectFill"></image>
+        <image class="activity-image" src="{{item.coverUrl ? item.coverUrl : '/assets/images/default_cover.png'}}" mode="aspectFill"></image>
         <view class="activity-info">
           <view class="activity-title">{{item.title}}</view>
           <view class="activity-time">时间：{{item.startTime}}</view>

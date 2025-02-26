@@ -107,8 +107,7 @@
 }
 
 .submit-button:active {
-  background: #0066D6;
-  transform: scale(0.98);
+  background:rgb(10, 130, 68);
 }
 
 /* 上传组件样式 */

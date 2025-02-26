@@ -199,7 +199,7 @@ Page({
       return {
         title: this.data.activity.title,
         path: `/pages/activity/detail/index?id=${this.activityId}`,
-        imageUrl: this.data.activity.coverImage || '/assets/images/default_cover.png'
+        imageUrl: this.data.activity.coverUrl || '/assets/images/default_cover.png'
       }
     }
     return {

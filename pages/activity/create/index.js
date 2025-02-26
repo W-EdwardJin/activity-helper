@@ -232,7 +232,7 @@ Page({
           location: formData.location,
           maxParticipants: parseInt(this.data.maxParticipants) || 20,
           details: formData.details,
-          coverImage: fileList[0]?.url || '',
+          coverUrl: fileList[0]?.url || '',
           creatorId: app.globalData.userInfo._id,
           status: '报名中',
           createTime: db.serverDate(),

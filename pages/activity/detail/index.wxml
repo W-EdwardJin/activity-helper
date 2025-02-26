@@ -21,7 +21,7 @@
           <van-tag type="primary" size="medium">{{ activity.type }}</van-tag>
         </van-cell>
         <van-cell title="参与人数" icon="friends-o">
-          <text>{{ activity.currentParticipants + 1 }}/{{ activity.maxParticipants }}</text>
+          <text>{{ activity.currentParticipants }}/{{ activity.maxParticipants }}</text>
         </van-cell>
       </van-cell-group>
 
