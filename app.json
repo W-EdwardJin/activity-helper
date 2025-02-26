@@ -30,7 +30,7 @@
       },
       {
         "pagePath": "pages/activity/create/index",
-        "text": "发布",
+        "text": "创建",
         "iconPath": "assets/images/add.png",
         "selectedIconPath": "assets/images/add_active.png"
       },

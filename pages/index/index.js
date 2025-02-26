@@ -3,12 +3,15 @@ Page({
   data: {
     activities: [],
     loading: false,
-    activeType: 'recommend',
+    activeType: 'all',
     types: [
-      { text: '全部', value: 'recommend' },
-      { text: '运动', value: 'sports' },
-      { text: '聚餐', value: 'dinner' },
-      { text: '聚会', value: 'party' }
+      { text: '全部', value: 'all' },
+      { text: '聚会', value: '聚会' },
+      { text: '运动', value: '运动' },
+      { text: '聚餐', value: '聚餐' },
+      { text: '旅行', value: '旅行' },
+      { text: '会议', value: '会议' },
+      { text: '其他', value: '其他' }
     ],
     page: 1,
     pageSize: 10,
@@ -44,7 +47,7 @@ Page({
       const db = wx.cloud.database()
       
       let query = db.collection('activity')
-      if (this.data.activeType !== 'recommend') {
+      if (this.data.activeType !== 'all') {
         query = query.where({
           type: this.data.activeType
         })
@@ -56,12 +59,20 @@ Page({
         .limit(this.data.pageSize)
         .get()
 
-      this.setData({
-        activities: this.data.page === 1 ? activities.data : [...this.data.activities, ...activities.data],
-        page: this.data.page + 1,
-        hasMore: activities.data.length === this.data.pageSize,
-        loading: false
-      })
+      // 确保数据加载成功后再更新状态
+      if (activities && activities.data) {
+        this.setData({
+          activities: this.data.page === 1 ? activities.data : [...this.data.activities, ...activities.data],
+          page: this.data.page + 1,
+          hasMore: activities.data.length === this.data.pageSize,
+          loading: false
+        })
+      } else {
+        this.setData({
+          loading: false,
+          hasMore: false
+        })
+      }
 
       wx.stopPullDownRefresh()
     } catch (err) {
@@ -70,13 +81,19 @@ Page({
         title: '加载失败',
         icon: 'error'
       })
-      this.setData({ loading: false })
+      this.setData({ 
+        loading: false,
+        hasMore: true,
+        page: this.data.page === 1 ? 1 : this.data.page - 1
+      })
     }
   },
 
   // 切换活动类型
   onTypeChange(event) {
-    const type = event.detail
+    const type = event.detail.name || 'all'  // 修复：正确获取类型值
+    if (type === this.data.activeType) return // 避免重复加载
+
     this.setData({
       activeType: type,
       activities: [],

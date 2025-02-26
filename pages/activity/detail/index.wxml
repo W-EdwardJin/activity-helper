@@ -34,18 +34,11 @@
       <!-- 参与者列表 -->
       <view class="participants-section">
         <view class="section-title">参与者列表</view>
-        <view class="participants-list">
-          <van-cell-group>
-            <van-cell wx:for="{{ participants }}" 
-                      wx:key="_id"
-                      title="{{ item.nickName }}"
-                      label="{{ item.status }}"
-                      center>
-              <image slot="icon" 
-                     src="{{ item.avatarUrl }}" 
-                     class="participant-avatar"/>
-            </van-cell>
-          </van-cell-group>
+        <view class="participants-grid">
+          <view class="participant-item" wx:for="{{ participants }}" wx:key="_id">
+            <image class="participant-avatar" src="{{ item.avatarUrl }}" mode="aspectFill"/>
+            <text class="participant-name">{{ item.nickName }}</text>
+          </view>
         </view>
       </view>
     </view>
