@@ -49,24 +49,18 @@
         </view>
       </view>
     </view>
-
-    <!-- 底部操作栏 -->
-    <view class="bottom-bar">
-      <block wx:if="{{ !isCreator }}">
-        <van-button wx:if="{{ !hasJoined }}" 
-                    type="primary" 
-                    block 
-                    bind:click="joinActivity">加入</van-button>
-        <van-button wx:else 
-                    type="default" 
-                    block 
-                    disabled>已加入</van-button>
-      </block>
-    </view>
   </block>
 
   <!-- 加载中状态 -->
-  <view wx:if="{{ loading }}" class="loading">
-    <van-loading type="spinner" color="#1296db" />
+  <view wx:if="{{ loading }}" class="loading-container">
+    <van-loading type="spinner" color="#1989fa" />
+  </view>
+
+  <!-- 底部固定按钮 -->
+  <view class="bottom-button-container">
+    <button class="join-button {{ hasJoined ? 'joined' : '' }}" 
+            bindtap="{{ !hasJoined ? 'enroll' : '' }}">
+      {{ hasJoined ? '已加入' : '加入' }}
+    </button>
   </view>
 </view>
