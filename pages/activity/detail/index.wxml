@@ -53,14 +53,14 @@
     <!-- 底部操作栏 -->
     <view class="bottom-bar">
       <block wx:if="{{ !isCreator }}">
-        <van-button wx:if="{{ !isEnrolled }}" 
+        <van-button wx:if="{{ !hasJoined }}" 
                     type="primary" 
                     block 
-                    bind:click="enroll">立即报名</van-button>
+                    bind:click="joinActivity">加入</van-button>
         <van-button wx:else 
-                    type="danger" 
+                    type="default" 
                     block 
-                    bind:click="cancelEnrollment">取消报名</van-button>
+                    disabled>已加入</van-button>
       </block>
     </view>
   </block>

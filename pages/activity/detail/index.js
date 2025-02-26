@@ -4,7 +4,7 @@ Page({
     activity: null,
     participants: [],
     isCreator: false,
-    isEnrolled: false,
+    hasJoined: false,
     loading: true
   },
 
@@ -73,7 +73,7 @@ Page({
 
       this.setData({
         participants,
-        isEnrolled
+        hasJoined: isEnrolled
       })
     } catch (err) {
       console.error('加载参与者列表失败：', err)
@@ -162,6 +162,20 @@ Page({
         title: '操作失败',
         icon: 'error'
       })
+    }
+  },
+  // 分享活动
+  onShareAppMessage() {
+    if (this.data.activity) {
+      return {
+        title: this.data.activity.title,
+        path: `/pages/activity/detail/index?id=${this.activityId}`,
+        imageUrl: this.data.activity.coverImage || '/assets/images/default_cover.png'
+      }
+    }
+    return {
+      title: '活动详情',
+      path: '/pages/index/index'
     }
   }
 })
