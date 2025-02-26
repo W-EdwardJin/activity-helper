@@ -2,7 +2,7 @@
 Page({
   data: {
     activities: [],
-    loading: true,
+    loading: false,
     page: 1,
     hasMore: true
   },

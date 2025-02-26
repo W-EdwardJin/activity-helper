@@ -26,7 +26,7 @@
   <view class="empty-state" wx:if="{{!loading && activities.length === 0}}">
     <image src="/assets/images/empty.png"></image>
     <text>还没有参加过活动哦</text>
-    <navigator url="/pages/index/index" class="browse-btn">去浏览</navigator>
+    <navigator url="/pages/index/index" class="browse-btn" open-type="switchTab">去浏览</navigator>
   </view>
 
   <!-- 加载中状态 -->

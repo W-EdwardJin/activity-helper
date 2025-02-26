@@ -2,14 +2,17 @@
 Page({
   data: {
     activities: [],
-    loading: true,
+    loading: false,
     activeType: 'recommend',
     types: [
-      { text: '推荐', value: 'recommend' },
+      { text: '全部', value: 'recommend' },
       { text: '运动', value: 'sports' },
       { text: '聚餐', value: 'dinner' },
       { text: '聚会', value: 'party' }
-    ]
+    ],
+    page: 1,
+    pageSize: 10,
+    hasMore: true
   },
 
   onLoad() {
@@ -17,50 +20,48 @@ Page({
   },
 
   onPullDownRefresh() {
-    this.loadActivities()
+    this.setData({
+      activities: [],
+      page: 1,
+      hasMore: true
+    }, () => {
+      this.loadActivities()
+    })
+  },
+
+  onReachBottom() {
+    if (this.data.hasMore && !this.data.loading) {
+      this.loadActivities()
+    }
   },
 
   // 加载活动列表
   async loadActivities() {
+    if (this.data.loading || !this.data.hasMore) return
+
+    this.setData({ loading: true })
     try {
-      this.setData({ loading: true })
       const db = wx.cloud.database()
       
-      // if (this.data.activeType === 'recommend') {
-      //   // 调用推荐云函数
-      //   const app = getApp()
-      //   const result = await wx.cloud.callFunction({
-      //     name: 'recommendActivities',
-      //     data: {
-      //       userInfo: app.globalData.userInfo || {}
-      //     }
-      //   })
-        
-      //   if (result.result.success) {
-      //     this.setData({
-      //       activities: result.result.data,
-      //       loading: false
-      //     })
-      //   } else {
-      //     throw new Error('获取推荐活动失败')
-      //   }
-      // } else {
-        // 原有的活动列表加载逻辑
-        let query = db.collection('activity')
-        if (this.data.activeType !== 'all') {
-          query = query.where({
-            type: this.data.activeType
-          })
-        }
-        const activities = await query
-          .orderBy('createTime', 'desc')
-          .get()
-
-        this.setData({
-          activities: activities.data,
-          loading: false
+      let query = db.collection('activity')
+      if (this.data.activeType !== 'recommend') {
+        query = query.where({
+          type: this.data.activeType
         })
-      // }
+      }
+
+      const activities = await query
+        .orderBy('createTime', 'desc')
+        .skip((this.data.page - 1) * this.data.pageSize)
+        .limit(this.data.pageSize)
+        .get()
+
+      this.setData({
+        activities: this.data.page === 1 ? activities.data : [...this.data.activities, ...activities.data],
+        page: this.data.page + 1,
+        hasMore: activities.data.length === this.data.pageSize,
+        loading: false
+      })
 
       wx.stopPullDownRefresh()
     } catch (err) {
@@ -76,7 +77,12 @@ Page({
   // 切换活动类型
   onTypeChange(event) {
     const type = event.detail
-    this.setData({ activeType: type }, () => {
+    this.setData({
+      activeType: type,
+      activities: [],
+      page: 1,
+      hasMore: true
+    }, () => {
       this.loadActivities()
     })
   },
